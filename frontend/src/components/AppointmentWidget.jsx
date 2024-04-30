@@ -2,13 +2,9 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 const AppointmentWidget = () => {
-  const [formData, setFormData] = useState({
-    patientName: "",
-    patientAge: "",
-    patientAddress: "",
-    // ... other appointment details
-  });
-
+  const [patientName, setPatientName] = useState("");
+  const [patientAge, setPatientAge] = useState("");
+  const [patientAddress, setPatientAddress] = useState(""); 
   const [nextPID, setNextPID] = useState(null);
 
   useEffect(() => {
@@ -21,12 +17,12 @@ const AppointmentWidget = () => {
     fetchNextPID();
   }, []);
 
-  const handleInputChange = (event) => {
-    setFormData({
-      ...formData,
-      [event.target.name]: event.target.value,
-    });
-  };
+  // const handleInputChange = (event) => {
+  //   setFormData({
+  //     ...formData,
+  //     [event.target.name]: event.target.value,
+  //   });
+  // };
 
   const handleAppointmentSubmit = async (event) => {
     event.preventDefault();
@@ -79,8 +75,8 @@ const AppointmentWidget = () => {
                 type="text"
                 id="patientName"
                 name="patientName"
-                value={formData.patientName}
-                onChange={handleInputChange}
+                value={patientName}
+                onChange={(e) => setPatientName(e.target.value)}
                 className="w-full border border-gray-300 px-3 py-2 rounded"
               />
             </div>
@@ -92,8 +88,8 @@ const AppointmentWidget = () => {
                 type="number"
                 id="patientAge"
                 name="patientAge"
-                value={formData.patientAge}
-                onChange={handleInputChange}
+                value={patientAge}
+                onChange={(e) => setPatientAge(e.target.value)}
                 className="w-full border border-gray-300 px-3 py-2 rounded"
               />
             </div>
@@ -108,10 +104,21 @@ const AppointmentWidget = () => {
             <textarea
               id="patientAddress"
               name="patientAddress"
-              value={formData.patientAddress}
-              onChange={handleInputChange}
+              value={patientAddress}
+              onChange={(e) => setPatientAddress(e.target.value)}
               className="w-full border border-gray-300 px-3 py-2 rounded"
             />
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 mb-1">Role:</label>
+            <select
+              value={mode}
+              onChange={(e) => setMode(e.target.value)}
+              className="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:border-blue-500"
+            >
+              <option value="staff">Staff</option>
+              <option value="doctor">Doctor</option>
+            </select>
           </div>
           {/* ... Rest of Appointment Form */}
           <button

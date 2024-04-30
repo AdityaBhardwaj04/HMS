@@ -6,6 +6,7 @@ const patientSchema = new mongoose.Schema({
   patientName: { type: String, required: true },
   patientAge: { type: Number, required: true },
   patientAddress: { type: String, required: true },
+  paymentStatus: { type: String, required: true, enum: ["paid", "unpaid"] },
 });
 
 module.exports = mongoose.model("Patient", patientSchema);
